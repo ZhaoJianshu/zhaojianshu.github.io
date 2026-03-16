@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zhao Jianshu | Personal Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-white);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--bg-white);
+            padding: 1rem 5%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Header / Hero Section (Blue Gradient) */
+        header {
+            text-align: center;
+            padding: 120px 5%; /* 稍微增加了上下间距，弥补按钮去掉后的空间 */
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        }
+
+        header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #4b5563;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Full-width Section Styling */
+        section {
+            padding: 80px 5%;
+            width: 100%;
+        }
+
+        /* Color Blocks */
+        .section-white {
+            background-color: var(--bg-white);
+        }
+
+        .section-blue {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        }
+
+        /* Centered Content Container */
+        .section-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text-color);
+        }
+
+        /* Education Section (White Background) */
+        .education-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .education-card {
+            background-color: var(--bg-white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e5e7eb;
+        }
+
+        .education-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(37, 99, 235, 0.08);
+        }
+
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .edu-header h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .edu-date {
+            color: #4b5563;
+            font-size: 0.9rem;
+            background-color: #f3f4f6;
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-weight: 500;
+        }
+
+        .edu-school {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .edu-desc {
+            color: #4b5563;
+        }
+
+        /* Skills Tags (Floating on Blue Background) */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            background-color: var(--bg-white);
+            color: var(--primary-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer a {
+            color: #93c5fd;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h1>Zhao</h1>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header id="about">
+        <h2>Hello, I'm Zhao Jianshu 👋</h2>
+        <p>Currently a Master's student focusing on Artificial Intelligence and Cloud Computing. I am deeply fascinated by Generative Models, particularly Flow-based models, and always eager to explore novel and interesting ideas.</p>
+    </header>
+
+    <section id="education" class="section-white">
+        <div class="section-inner">
+            <h2 class="section-title">Education</h2>
+            <div class="education-list">
+                
+                <div class="education-card">
+                    <div class="edu-header">
+                        <h3>Master of Engineering in Computer Technology</h3>
+                        <span class="edu-date">Sept 2024 - Present</span>
+                    </div>
+                    <p class="edu-school">BUPT</p>
+                    <p class="edu-desc">Research Focus: Artificial Intelligence, Deep Learning, and Generative Models.</p>
+                </div>
+
+                <div class="education-card">
+                    <div class="edu-header">
+                        <h3>Bachelor of Engineering in Artificial Intelligence</h3>
+                        <span class="edu-date">Sept 2020 - Jun 2024</span>
+                    </div>
+                    <p class="edu-school">BUPT</p>
+                    <p class="edu-desc">Core Coursework: Data Structures, Algorithms, Operating Systems, and Machine Learning.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section-blue">
+        <div class="section-inner">
+            <h2 class="section-title">Tools & Technologies I've Worked With</h2>
+            <div class="skills-container">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">PyTorch</span>
+                <span class="skill-tag">Computer Vision</span>
+                <span class="skill-tag">Generative Models</span>
+                <span class="skill-tag">Docker / Git</span>
+                <span class="skill-tag">Vim</span>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>Thanks for visiting! You can find me on GitHub:</p>
+        <p style="margin-top: 10px;">
+            <a href="https://github.com/zhaojianshu" target="_blank">github.com/zhaojianshu</a>
+        </p>
+        <p style="margin-top: 20px; font-size: 0.8rem; color: #9ca3af;">&copy; 2026 Zhao. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
