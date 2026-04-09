@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jianshu's Homepage</title>
+    <title>Zhao Jianshu | Portfolio</title>
     <style>
         :root {
-            --primary-color: #2563eb;
-            --text-color: #1f2937;
-            --bg-white: #ffffff;
+            --bg-outside: #f4f5f7;
+            --bg-paper: #ffffff;
+            --text-main: #111827; /* 加深了主要文字的颜色，对比更强烈 */
+            --text-muted: #4b5563;
+            --accent-color: #2563eb;
+            --border-light: #e5e7eb;
         }
         
         * {
@@ -16,245 +19,287 @@
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background-color: var(--bg-white);
-            color: var(--text-color);
-            line-height: 1.6;
+            background-color: var(--bg-outside);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0; 
+            display: flex;
+            justify-content: center; 
         }
 
-        /* Navigation */
+        .paper-wrapper {
+            background-color: var(--bg-paper);
+            max-width: 1000px; 
+            width: 100%;
+            min-height: 100vh; 
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.05); 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-padding {
+            padding: 0 80px; 
+        }
+
+        /* --- 1. 优化导航栏：更大、更有分量 --- */
         nav {
-            background-color: var(--bg-white);
-            padding: 1rem 5%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-top: 35px; 
+            padding-bottom: 35px; 
+            border-bottom: 1px solid var(--border-light);
             position: sticky;
             top: 0;
+            background-color: rgba(255, 255, 255, 0.95); /* 微微透明的毛玻璃效果 */
+            backdrop-filter: blur(8px);
             z-index: 100;
         }
 
         nav h1 {
-            font-size: 1.5rem;
-            color: var(--primary-color);
+            font-size: 1.6rem; /* 放大 Logo 字体 */
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem; /* 加宽链接间距 */
         }
 
         nav a {
             text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: color 0.3s;
+            color: var(--text-muted);
+            font-size: 1.1rem; /* 放大链接字体 */
+            font-weight: 600;
+            transition: color 0.2s;
         }
 
         nav a:hover {
-            color: var(--primary-color);
+            color: var(--accent-color);
         }
 
-        /* Header / Hero Section (Blue Gradient) */
+        /* 简介头部 */
         header {
-            text-align: center;
-            padding: 120px 5%; /* 稍微增加了上下间距，弥补按钮去掉后的空间 */
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            padding-top: 100px; 
+            padding-bottom: 80px; 
         }
 
         header h2 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem; 
+            letter-spacing: -1px;
         }
 
         header p {
-            font-size: 1.2rem;
-            color: #4b5563;
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 85%; 
         }
 
-        /* Full-width Section Styling */
+        /* 通用区块样式 */
         section {
-            padding: 80px 5%;
-            width: 100%;
+            padding-top: 50px; 
+            padding-bottom: 70px; 
+        }
+        
+        section:last-of-type {
+            flex-grow: 1; 
         }
 
-        /* Color Blocks */
-        .section-white {
-            background-color: var(--bg-white);
-        }
-
-        .section-blue {
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-        }
-
-        /* Centered Content Container */
-        .section-inner {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
+        /* --- 2. 优化区块标题：加入横线分割，视觉上更像一个“容器”的顶盖 --- */
         .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: var(--text-color);
-        }
-
-        /* Education Section (White Background) */
-        .education-list {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 3rem; 
+            font-weight: 700;
             display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            align-items: center;
+            gap: 20px;
         }
 
-        .education-card {
-            background-color: var(--bg-white);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #e5e7eb;
+        .section-title::after {
+            content: "";
+            height: 2px;
+            background-color: var(--border-light);
+            flex-grow: 1; /* 横线自动填满右侧剩余空间 */
+            border-radius: 2px;
         }
 
-        .education-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(37, 99, 235, 0.08);
+        /* --- 3. 优化教育经历：加入时间轴连线，把经历串联起来 --- */
+        .education-list {
+            /* 左侧的主连线 */
+            border-left: 2px solid var(--border-light);
+            padding-left: 30px;
+            margin-left: 10px; /* 给圆点留出空间 */
+        }
+
+        .edu-item {
+            position: relative; /* 为了定位时间轴圆点 */
+            margin-bottom: 3.5rem; 
+        }
+        
+        .edu-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 时间轴上的蓝色小圆点 */
+        .edu-item::before {
+            content: "";
+            position: absolute;
+            left: -37px; /* 定位到竖线上 */
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            /* 用一个白边包裹蓝点，看起来更精致 */
+            border: 3px solid var(--bg-paper); 
+            box-sizing: content-box;
         }
 
         .edu-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.8rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
+            align-items: baseline;
+            margin-bottom: 0.5rem; 
         }
 
-        .edu-header h3 {
-            color: var(--primary-color);
+        .edu-degree {
             font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-main);
         }
 
         .edu-date {
-            color: #4b5563;
-            font-size: 0.9rem;
-            background-color: #f3f4f6;
-            padding: 0.2rem 0.8rem;
-            border-radius: 15px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
             font-weight: 500;
         }
 
         .edu-school {
-            font-weight: bold;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 0.8rem; 
             font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-color);
         }
 
         .edu-desc {
-            color: #4b5563;
+            color: var(--text-muted);
         }
 
-        /* Skills Tags (Floating on Blue Background) */
+        /* 技能标签 */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
+            gap: 1.2rem; 
         }
 
         .skill-tag {
-            background-color: var(--bg-white);
-            color: var(--primary-color);
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
-            font-size: 0.95rem;
+            background-color: var(--bg-paper);
+            color: var(--text-main);
+            padding: 0.6rem 1.4rem; 
+            border-radius: 8px;
+            border: 1px solid var(--border-light); /* 改为边框样式，更清爽 */
+            font-size: 1rem;
             font-weight: 500;
-            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
         }
 
         .skill-tag:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(37, 99, 235, 0.15);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
         }
 
-        /* Footer */
+        /* 页脚 */
         footer {
-            background-color: var(--text-color);
-            color: white;
             text-align: center;
-            padding: 2rem;
+            padding: 40px 30px; 
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-light); 
+            margin-top: auto; 
         }
 
-        footer a {
-            color: #93c5fd;
-            text-decoration: none;
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .content-padding { padding: 0 30px; }
+            .edu-header { flex-direction: column; }
+            header h2 { font-size: 2.4rem; }
+            header p { max-width: 100%; }
+            .section-title::after { display: none; } /* 手机端空间小，可隐藏横线 */
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <h1>Jianshu's Homepage</h1>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#skills">Skills</a></li>
-        </ul>
-    </nav>
+    <div class="paper-wrapper">
+        <nav class="content-padding">
+            <h1>Jianshu</h1>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+            </ul>
+        </nav>
 
-    <header id="about">
-        <h2 style="font-size: 24px;">Hello, I'm Zhao Jianshu 👋</h2>
-        <p>Currently a Master's student focusing on Artificial Intelligence and Cloud Computing. I am deeply fascinated by Generative Models, particularly Flow-based models, and always eager to explore novel and interesting ideas.</p>
-    </header>
+        <header id="about" class="content-padding">
+            <h2>Hello, I'm Jianshu 👋</h2>
+            <!-- <p>A Master's student focusing on Artificial Intelligence and Cloud Computing. I am deeply fascinated by Generative Models, particularly Flow-based models, and always eager to explore novel and interesting ideas.</p> -->
+            <p>A Master's student.</p>
+        </header>
 
-    <section id="education" class="section-white">
-        <div class="section-inner">
-            <h2 class="section-title">Education</h2>
+        <section id="education" class="content-padding">
+            <h3 class="section-title">Education</h3>
+            
             <div class="education-list">
-                
-                <div class="education-card">
+                <div class="edu-item">
                     <div class="edu-header">
-                        <h3>Master of Engineering in Computer Technology</h3>
-                        <span class="edu-date">Sept 2024 - Present</span>
+                        <div class="edu-degree">Master of Engineering in Computer Technology</div>
+                        <div class="edu-date">2024 — Present</div>
                     </div>
-                    <p class="edu-school">BUPT</p>
-                    <p class="edu-desc">Research Focus: Software Engineering, and Generative Models.</p>
+                    <div class="edu-school">Beijing University of Posts and Telecommunications</div>
+                    <p class="edu-desc">Research Focus: Software Engineering and Generative Models.</p>
                 </div>
 
-                <div class="education-card">
+                <div class="edu-item">
                     <div class="edu-header">
-                        <h3>Bachelor of Engineering in Artificial Intelligence</h3>
-                        <span class="edu-date">Sept 2020 - Jun 2024</span>
+                        <div class="edu-degree">Bachelor of Engineering in Artificial Intelligence</div>
+                        <div class="edu-date">2020 — 2024</div>
                     </div>
-                    <p class="edu-school">BUPT</p>
+                    <div class="edu-school">Beijing University of Posts and Telecommunications</div>
                     <p class="edu-desc">Core Coursework: Data Structures, Algorithms, Operating Systems, and Machine Learning.</p>
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="skills" class="section-blue">
-        <div class="section-inner">
-            <h2 class="section-title">Tools & Technologies I've Worked With</h2>
+        <section id="skills" class="content-padding">
+            <h3 class="section-title">Stack & Tools</h3>
+            
             <div class="skills-container">
                 <span class="skill-tag">Python</span>
                 <span class="skill-tag">PyTorch</span>
                 <span class="skill-tag">Computer Vision</span>
                 <span class="skill-tag">Generative Models</span>
-                <span class="skill-tag">Docker / Git</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">Git</span>
                 <span class="skill-tag">Vim</span>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <footer>
+            © 2026 Zhao Jianshu.
+        </footer>
+    </div>
 
 </body>
 </html>
