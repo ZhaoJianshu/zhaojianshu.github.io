@@ -3,22 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zhao Jianshu | Portfolio</title>
+    <title>HomePage | Jianshu Zhao</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600&family=Source+Code+Pro:wght@500;600&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg-outside: #f4f5f7;
+            --bg-outside: #f8f9fa;
             --bg-paper: #ffffff;
-            --text-main: #111827; /* 加深了主要文字的颜色，对比更强烈 */
-            --text-muted: #4b5563;
-            --accent-color: #2563eb;
-            --border-light: #e5e7eb;
+            --text-main: #111827; 
+            --text-muted: #6b7280;
+            --accent-color: #3b82f6;
+            --border-light: #334155;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            -webkit-font-smoothing: antialiased;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -26,42 +33,42 @@
             background-color: var(--bg-outside);
             color: var(--text-main);
             line-height: 1.8;
-            margin: 0; 
-            display: flex;
-            justify-content: center; 
+            min-height: 100vh;
         }
 
-        .paper-wrapper {
-            background-color: var(--bg-paper);
-            max-width: 1000px; 
-            width: 100%;
-            min-height: 100vh; 
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.05); 
-            display: flex;
-            flex-direction: column;
+        /* 专门为所有标题分配学术风的 Crimson Pro 衬线体 */
+        h1, h2, h3, .edu-degree {
+            font-family: 'Crimson Pro', serif;
         }
 
-        .content-padding {
-            padding: 0 80px; 
+
+        /* 居中容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px; /* 控制整体距离屏幕边缘的距离 */
         }
 
-        /* --- 1. 优化导航栏：更大、更有分量 --- */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 35px; 
-            padding-bottom: 35px; 
-            border-bottom: 1px solid var(--border-light);
+            padding: 10px 40px; /* 左右边距，如果想和下面卡片对齐，可以把 40px 调大 */
+            background-color: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px); 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); 
+            
             position: sticky;
-            top: 0;
-            background-color: rgba(255, 255, 255, 0.95); /* 微微透明的毛玻璃效果 */
-            backdrop-filter: blur(8px);
+            top: 0; /* 改为 0，紧贴最顶部 */
+            left: 0; /* 紧贴最左侧 */
+            width: 100%; /* 宽度撑满 100% */
             z-index: 100;
+            border-radius: 0; /* 确保去掉圆角 */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); /* 极淡的阴影，保持简洁 */
         }
 
         nav h1 {
-            font-size: 1.6rem; /* 放大 Logo 字体 */
+            font-size: 1.5rem; 
             font-weight: 800;
             letter-spacing: -0.5px;
             color: var(--text-main);
@@ -70,13 +77,13 @@
         nav ul {
             list-style: none;
             display: flex;
-            gap: 2.5rem; /* 加宽链接间距 */
+            gap: 2.5rem; 
         }
 
         nav a {
             text-decoration: none;
             color: var(--text-muted);
-            font-size: 1.1rem; /* 放大链接字体 */
+            font-size: 1.05rem; 
             font-weight: 600;
             transition: color 0.2s;
         }
@@ -85,36 +92,41 @@
             color: var(--accent-color);
         }
 
-        /* 简介头部 */
-        header {
-            padding-top: 100px; 
-            padding-bottom: 80px; 
+        /* --- 2. 卡片通用样式 --- */
+        .card {
+            background-color: var(--bg-paper);
+            border-radius: 0; /* 方角设计，去掉圆角 */
+            padding: 20px 30px; /* 卡片内部留白 */
+            margin-bottom: 30px; /* 卡片之间的间隔，替代了原来的横线 */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02); /* 极淡的阴影，不喧宾夺主 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        header h2 {
-            font-size: 2.4rem;
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05); /* 鼠标悬浮时阴影加深 */
+        }
+
+        /* 简介卡片特调 */
+        #about {
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+
+        #about h2 {
+            font-size: 2.6rem;
             font-weight: 800;
-            margin-bottom: 1.5rem; 
+            margin-bottom: 1rem; 
             letter-spacing: -1px;
         }
 
-        header p {
+        #about p {
             font-size: 1.25rem;
             color: var(--text-muted);
             max-width: 85%; 
         }
 
-        /* 通用区块样式 */
-        section {
-            padding-top: 50px; 
-            padding-bottom: 70px; 
-        }
-        
-        section:last-of-type {
-            flex-grow: 1; 
-        }
-
-        /* --- 2. 优化区块标题：加入横线分割，视觉上更像一个“容器”的顶盖 --- */
+        /* 区块标题 */
         .section-title {
             font-size: 1.8rem;
             color: var(--text-main);
@@ -122,70 +134,50 @@
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
-        .section-title::after {
+        /* 标题前面的蓝色小竖线装饰 */
+        .section-title::before {
             content: "";
-            height: 2px;
-            background-color: var(--border-light);
-            flex-grow: 1; /* 横线自动填满右侧剩余空间 */
-            border-radius: 2px;
+            display: inline-block;
+            width: 6px;
+            height: 24px;
+            background-color: var(--accent-color);
+            border-radius: 4px;
         }
 
-        /* --- 3. 优化教育经历：加入时间轴连线，把经历串联起来 --- */
+        /* --- 3. 教育经历时间轴 --- */
         .education-list {
-            /* 左侧的主连线 */
-            border-left: 2px solid var(--border-light);
-            padding-left: 30px;
-            margin-left: 10px; /* 给圆点留出空间 */
+            padding-left: 0;
+            margin-left: 0; 
         }
 
         .edu-item {
-            position: relative; /* 为了定位时间轴圆点 */
-            margin-bottom: 3.5rem; 
+            position: relative; 
+            margin-bottom: 2.5rem; 
         }
         
         .edu-item:last-child {
             margin-bottom: 0;
         }
 
-        /* 时间轴上的蓝色小圆点 */
-        .edu-item::before {
-            content: "";
-            position: absolute;
-            left: -37px; /* 定位到竖线上 */
-            top: 6px;
-            width: 12px;
-            height: 12px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-            /* 用一个白边包裹蓝点，看起来更精致 */
-            border: 3px solid var(--bg-paper); 
-            box-sizing: content-box;
-        }
-
         .edu-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 0.5rem; 
-        }
-
-        .edu-degree {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-main);
+            margin-bottom: 0.3rem; 
         }
 
         .edu-date {
             color: var(--text-muted);
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: 600;
+            padding: 4px 14px;
         }
 
         .edu-school {
-            color: var(--accent-color);
+            color: var(--text-main);
             font-weight: 600;
             margin-bottom: 0.8rem; 
             font-size: 1.1rem;
@@ -195,7 +187,7 @@
             color: var(--text-muted);
         }
 
-        /* 技能标签 */
+        /* --- 4. 技能标签 --- */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
@@ -203,86 +195,77 @@
         }
 
         .skill-tag {
-            background-color: var(--bg-paper);
+            font-family: 'Source Code Pro', monospace;
+            background-color: var(--bg-outside); /* 卡片内使用浅灰底色作为标签 */
             color: var(--text-main);
-            padding: 0.6rem 1.4rem; 
-            border-radius: 8px;
-            border: 1px solid var(--border-light); /* 改为边框样式，更清爽 */
+            padding: 0.7rem 1.6rem; 
+            border-radius: 12px; /* 较小的圆角 */
             font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.2s;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: default;
         }
 
         .skill-tag:hover {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
+            background-color: var(--accent-color);
+            color: white;
             transform: translateY(-2px); 
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.2);
         }
 
         /* 页脚 */
         footer {
             text-align: center;
-            padding: 40px 30px; 
+            padding: 20px; 
             color: var(--text-muted);
             font-size: 0.9rem;
-            border-top: 1px solid var(--border-light); 
-            margin-top: auto; 
+            margin-top: 20px;
         }
 
-        /* 移动端适配 */
-        @media (max-width: 768px) {
-            .content-padding { padding: 0 30px; }
-            .edu-header { flex-direction: column; }
-            header h2 { font-size: 2.4rem; }
-            header p { max-width: 100%; }
-            .section-title::after { display: none; } /* 手机端空间小，可隐藏横线 */
-        }
     </style>
 </head>
 <body>
+    <nav>
+        <h1>Jianshu Zhao</h1>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+        </ul>
+    </nav>
 
-    <div class="paper-wrapper">
-        <nav class="content-padding">
-            <h1>Jianshu</h1>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#skills">Skills</a></li>
-            </ul>
-        </nav>
+    <div class="container">
 
-        <header id="about" class="content-padding">
+        <header id="about" class="card">
             <h2>Hello, I'm Jianshu 👋</h2>
-            <!-- <p>A Master's student focusing on Artificial Intelligence and Cloud Computing. I am deeply fascinated by Generative Models, particularly Flow-based models, and always eager to explore novel and interesting ideas.</p> -->
             <p>A Master's student.</p>
         </header>
 
-        <section id="education" class="content-padding">
+        <section id="education" class="card">
             <h3 class="section-title">Education</h3>
-            
+
             <div class="education-list">
                 <div class="edu-item">
                     <div class="edu-header">
-                        <div class="edu-degree">Master of Engineering in Computer Technology</div>
+                        <div class="edu-school">Beijing University of Posts and Telecommunications</div>
                         <div class="edu-date">2024 — Present</div>
                     </div>
-                    <div class="edu-school">Beijing University of Posts and Telecommunications</div>
-                    <p class="edu-desc">Research Focus: Software Engineering and Generative Models.</p>
+                    <p class="edu-desc">M.S. in Computer Science</p>
                 </div>
 
                 <div class="edu-item">
                     <div class="edu-header">
-                        <div class="edu-degree">Bachelor of Engineering in Artificial Intelligence</div>
+                        <div class="edu-school">Beijing University of Posts and Telecommunications</div>
                         <div class="edu-date">2020 — 2024</div>
                     </div>
-                    <div class="edu-school">Beijing University of Posts and Telecommunications</div>
-                    <p class="edu-desc">Core Coursework: Data Structures, Algorithms, Operating Systems, and Machine Learning.</p>
+                    <p class="edu-desc">B.S. in Artificial Intelligence</p>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="content-padding">
+
+        </section>
+        <section id="skills" class="card">
             <h3 class="section-title">Stack & Tools</h3>
             
             <div class="skills-container">
@@ -293,6 +276,7 @@
                 <span class="skill-tag">Docker</span>
                 <span class="skill-tag">Git</span>
                 <span class="skill-tag">Vim</span>
+                <span class="skill-tag">TeX</span>
             </div>
         </section>
 
