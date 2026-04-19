@@ -5,99 +5,282 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HomePage | Jianshu Zhao</title>
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* 保留少量无法用纯 Bootstrap 类完美替代的个性化样式 */
+        /* ================= 基础变量与重置 ================= */
+        :root {
+            --font-main: 'Noto Sans', sans-serif, "Times New Roman";
+            --primary-color: #0d6efd;
+            --text-main: #212529;
+            --text-secondary: #6c757d;
+            --bg-body: #f8f9fa;
+            --bg-surface: #ffffff;
+            --border-color: #dee2e6;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-main);
+            background-color: var(--bg-body); /* 添加浅灰背景使白色卡片更明显 */
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ================= 导航栏 (响应式纯 CSS) ================= */
+        .navbar {
+            background-color: var(--bg-surface);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .nav-container {
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+        }
+
+        /* 移动端菜单切换控制 */
+        .menu-toggle {
+            display: none;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            user-select: none;
+        }
+
+        /* ================= 主体内容卡片 ================= */
         .container-paper {
             max-width: 900px;
+            margin: 1.5rem auto 3rem auto;
+            background-color: var(--bg-surface);
+            padding: 1.5rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         }
 
-        :root {
-            /* 1. 定义字体变量 */
-            --font-main: 'Noto Sans', sans-serif, "Times New Roman";
-            
-            /* 2. 将其指派给 Bootstrap 的全局正文变量 */
-            --bs-body-font-family: var(--font-main);
+        /* ================= 模块通用样式 ================= */
+        .section-header {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        /* 技能标签及悬停动画 */
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .about-desc {
+            font-size: 1.25rem;
+            color: var(--text-main);
+        }
+
+        /* ================= 教育经历模块 ================= */
+        .edu-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .edu-header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 0.25rem;
+        }
+
+        .edu-school {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .edu-date {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-style: italic;
+            margin-top: 0.25rem;
+        }
+
+        .edu-degree {
+            font-weight: 400;
+        }
+
+        /* ================= 技能标签模块 ================= */
+        .skills-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
         .skill-tag {
-            transition: all 0.2s ease;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 50px;
             cursor: default;
+            transition: all 0.2s ease;
         }
+
         .skill-tag:hover {
-            background-color: #0d6efd !important; /* Bootstrap primary color */
-            color: white !important;
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(13, 110, 253, 0.2);
+        }
+
+        /* ================= 响应式调整 (>= 768px) ================= */
+        @media (min-width: 768px) {
+            .navbar {
+                padding: 1rem 2.5rem;
+            }
+            .container-paper {
+                padding: 3rem;
+                margin-top: 2rem;
+            }
+            .edu-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: baseline;
+            }
+            .edu-date {
+                margin-top: 0;
+            }
+        }
+
+        /* ================= 响应式调整 (< 768px 移动端) ================= */
+        @media (max-width: 767px) {
+            .menu-icon {
+                display: block; /* 在手机上显示汉堡菜单图标 */
+            }
+            .nav-menu {
+                display: none; /* 默认隐藏菜单 */
+                flex-direction: column;
+                width: 100%;
+                padding-top: 1rem;
+                margin-top: 0.5rem;
+                border-top: 1px solid var(--border-color);
+                gap: 1rem;
+            }
+            /* 纯 CSS 折叠菜单核心逻辑：当复选框被选中时，显示相邻的导航菜单 */
+            .menu-toggle:checked ~ .nav-menu {
+                display: flex;
+            }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-md bg-white sticky-top shadow-sm py-2 px-md-4">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold fs-4" href="#">Jianshu Zhao</a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-toggle="target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav gap-3">
-                    <li class="nav-item"><a class="nav-link text-secondary fw-medium" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary fw-medium" href="#education">Education</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary fw-medium" href="#skills">Tools</a></li>
-                </ul>
-            </div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a class="navbar-brand" href="#">Jianshu Zhao</a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">☰</label>
+
+            <ul class="nav-menu">
+                <li><a class="nav-link" href="#about">About</a></li>
+                <li><a class="nav-link" href="#education">Education</a></li>
+                <li><a class="nav-link" href="#skills">Tools</a></li>
+            </ul>
         </div>
     </nav>
 
-    <main class="container-md container-paper bg-white shadow-sm p-4 p-md-5 mt-4 mb-5 rounded-1">
+    <main class="container-paper">
         
-        <header id="about" class="mb-5 pb-3 border-bottom">
-            <h2 class="fs-3 fw-bold mb-3">Jianshu Zhao</h2>
-            <p class="fs-5 text-dark mb-0">A Master's student.</p>
+        <header id="about" class="section-header">
+            <h2 class="about-title">Jianshu Zhao</h2>
+            <p class="about-desc">A Master's student.</p>
         </header>
 
-        <section id="education" class="mb-5 pb-3 border-bottom">
-            <h3 class="fs-3 fw-bold mb-4">Education</h3>
+        <section id="education" class="section-header">
+            <h3 class="section-title">Education</h3>
             
-            <div class="mb-4">
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-baseline mb-1">
-                    <span class="fs-5 fw-medium text-dark flex-grow-1 text-md-start" style="min-width: 160px;">Beijing University of Posts and Telecommunications</span>
-                    <span class="text-secondary small mt-1 mt-md-0 fst-italic">Sep.2024 — Present</span>
+            <div class="edu-item">
+                <div class="edu-header">
+                    <span class="edu-school">Beijing University of Posts and Telecommunications</span>
+                    <span class="edu-date">Sep.2024 — Present</span>
                 </div>
-                <div class="fw-normal">M.S. in Computer Science</div>
+                <div class="edu-degree">M.S. in Computer Science</div>
             </div>
 
-            <div>
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-baseline mb-1">
-                    <span class="fs-5 fw-medium text-dark flex-grow-1 text-md-start" style="min-width: 160px;">Beijing University of Posts and Telecommunications</span>
-                    <span class="text-secondary small mt-1 mt-md-0 fst-italic">Sep.2020 — Jul.2024</span>
+            <div class="edu-item" style="margin-bottom: 0;">
+                <div class="edu-header">
+                    <span class="edu-school">Beijing University of Posts and Telecommunications</span>
+                    <span class="edu-date">Sep.2020 — Jul.2024</span>
                 </div>
-                <div class="fw-normal">B.E. in Artificial Intelligence</div>
+                <div class="edu-degree">B.E. in Artificial Intelligence</div>
             </div>
         </section>
 
-        <section id="skills" class="mb-2">
-            <h3 class="fs-3 fw-bold mb-4">Stack & Tools</h3>
-            <div class="d-flex flex-wrap gap-3">
-                <span class="badge bg-light text-dark border py-2 px-3 fs-6 rounded-pill skill-tag">Python</span>
-                <span class="badge bg-light text-dark border py-2 px-3 fs-6 rounded-pill skill-tag">PyTorch</span>
-                <span class="badge bg-light text-dark border py-2 px-3 fs-6 rounded-pill skill-tag">Computer Vision</span>
-                <span class="badge bg-light text-dark border py-2 px-3 fs-6 rounded-pill skill-tag">Generative Models</span>
-                <span class="badge bg-light text-dark border py-2 px-3 fs-6 rounded-pill skill-tag">Docker</span>
-                <span class="badge bg-light text-dark border py-2 px-3 fs-6 rounded-pill skill-tag">Vim</span>
-                <span class="badge bg-light text-dark border py-2 px-3 fs-6 rounded-pill skill-tag">TeX</span>
+        <section id="skills">
+            <h3 class="section-title">Stack & Tools</h3>
+            <div class="skills-wrapper">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">PyTorch</span>
+                <span class="skill-tag">Computer Vision</span>
+                <span class="skill-tag">Generative Models</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">Vim</span>
+                <span class="skill-tag">TeX</span>
             </div>
         </section>
+        
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
